@@ -2,19 +2,19 @@
 
 A full-stack web application built with Spring Boot, MySQL, and Thymeleaf for managing employee leave requests, approvals, and history tracking.
 
-## 🚀 Tech Stack
+## Tech Stack
 * **Backend:** Java 17, Spring Boot, Spring Data JPA
 * **Frontend:** HTML5, CSS3, JavaScript, Thymeleaf
 * **Database:** MySQL
 * **Build Tool:** Maven
 
-## 📋 Features
+## Features
 * **Employee Login & Role-Based Workflows:** Separate dashboards and permissions for Employees and Managers.
 * **Apply Leave:** Employees can submit leave requests specifying Leave Type, Start/End Dates, and Reason.
 * **Manager Approval/Rejection:** Managers can review pending requests and approve or reject them with optional comments.
 * **Leave History & Tracking:** View comprehensive history of all requested leaves and current status (`PENDING`, `APPROVED`, `REJECTED`).
 
-## ⚙️ Setup & Execution
+## Setup & Execution
 
 1. **Database Setup:**
    * Create a MySQL database:
