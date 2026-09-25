@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav>
+        <h1>Employee Dashboard</h1>
+        <div class="user-info">
+            <span>Welcome, <strong th:text="${employee.name}">User</strong></span>
+            <a th:href="@{/logout}">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h3>Apply for Leave</h3>
+                <p>Submit a new leave request for manager review.</p>
+            </div>
+            <a th:href="@{/employee/apply-leave}" class="btn btn-primary">New Leave Request</a>
+        </div>
+
+        <h2>My Leave History</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Manager Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="leave : ${leaveHistory}">
+                    <td th:text="${leave.leaveType}">CASUAL_LEAVE</td>
+                    <td th:text="${leave.startDate}">2026-10-01</td>
+                    <td th:text="${leave.endDate}">2026-10-05</td>
+                    <td th:text="${leave.reason}">Family vacation</td>
+                    <td>
+                        <span th:class="'status-' + ${leave.status}" th:text="${leave.status}">PENDING</span>
+                    </td>
+                    <td th:text="${leave.managerComments != null ? leave.managerComments : 'N/A'}">Comments</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

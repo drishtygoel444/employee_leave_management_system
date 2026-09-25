@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav>
+        <h1>Manager Approval Portal</h1>
+        <div class="user-info">
+            <span>Welcome, Manager <strong th:text="${manager.name}">Admin</strong></span>
+            <a th:href="@{/logout}">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Pending Leave Approvals</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Reason</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="req : ${pendingRequests}">
+                    <td th:text="${req.employee.name}">John Doe</td>
+                    <td th:text="${req.leaveType}">SICK_LEAVE</td>
+                    <td th:text="${req.startDate}">2026-10-01</td>
+                    <td th:text="${req.endDate}">2026-10-03</td>
+                    <td th:text="${req.reason}">Flu</td>
+                    <td>
+                        <form th:action="@{/manager/update-status}" method="post" style="display: flex; gap: 0.5rem; align-items: center;">
+                            <input type="hidden" name="requestId" th:value="${req.id}">
+                            <input type="text" name="comments" placeholder="Optional comments" style="padding: 0.3rem;">
+                            <button type="submit" name="status" value="APPROVED" class="btn btn-success">Approve</button>
+                            <button type="submit" name="status" value="REJECTED" class="btn btn-danger">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 style="margin-top: 3rem;">All Leave Requests</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Type</th>
+                    <th>Dates</th>
+                    <th>Status</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="req : ${allRequests}">
+                    <td th:text="${req.employee.name}">Jane Smith</td>
+                    <td th:text="${req.leaveType}">CASUAL_LEAVE</td>
+                    <td th:text="${req.startDate + ' to ' + req.endDate}">2026-09-01 to 2026-09-02</td>
+                    <td>
+                        <span th:class="'status-' + ${req.status}" th:text="${req.status}">APPROVED</span>
+                    </td>
+                    <td th:text="${req.managerComments != null ? req.managerComments : 'None'}">None</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
